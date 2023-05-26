@@ -30,6 +30,21 @@
                 <span asp-validation-for="ExamDuration" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="classesId" class="control-label"></label>
+                <select asp-for="classesId" class="form-control" asp-items="ViewBag.classesId"></select>
+                <span asp-validation-for="classesId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="facultysId" class="control-label"></label>
+                <select asp-for="facultysId" class="form-control" asp-items="ViewBag.facultysId"></select>
+                <span asp-validation-for="facultysId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="subjectsId" class="control-label"></label>
+                <select asp-for="subjectsId" class="form-control" asp-items="ViewBag.subjectsId"></select>
+                <span asp-validation-for="subjectsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>

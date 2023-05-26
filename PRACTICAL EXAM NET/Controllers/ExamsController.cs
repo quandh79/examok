@@ -21,9 +21,8 @@ namespace PRACTICAL_EXAM_NET.Controllers
         // GET: Exams
         public async Task<IActionResult> Index()
         {
-              return _context.exams != null ? 
-                          View(await _context.exams.ToListAsync()) :
-                          Problem("Entity set 'DataContext.exams'  is null.");
+            var dataContext = _context.exams.Include(e => e.classes).Include(e => e.facultys).Include(e => e.subjects);
+            return View(await dataContext.ToListAsync());
         }
 
         // GET: Exams/Details/5
@@ -35,6 +34,9 @@ namespace PRACTICAL_EXAM_NET.Controllers
             }
 
             var exam = await _context.exams
+                .Include(e => e.classes)
+                .Include(e => e.facultys)
+                .Include(e => e.subjects)
                 .FirstOrDefaultAsync(m => m.ExamId == id);
             if (exam == null)
             {
@@ -47,6 +49,9 @@ namespace PRACTICAL_EXAM_NET.Controllers
         // GET: Exams/Create
         public IActionResult Create()
         {
+            ViewData["classesId"] = new SelectList(_context.classes, "Id", "Name");
+            ViewData["facultysId"] = new SelectList(_context.faculty, "Id", "Name");
+            ViewData["subjectsId"] = new SelectList(_context.subject, "Id", "Name");
             return View();
         }
 
@@ -55,7 +60,7 @@ namespace PRACTICAL_EXAM_NET.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ExamId,StartTime,ExamDate,ExamDuration")] Exam exam)
+        public async Task<IActionResult> Create([Bind("ExamId,StartTime,ExamDate,ExamDuration,classesId,facultysId,subjectsId")] Exam exam)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +68,9 @@ namespace PRACTICAL_EXAM_NET.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["classesId"] = new SelectList(_context.classes, "Id", "Name", exam.classesId);
+            ViewData["facultysId"] = new SelectList(_context.faculty, "Id", "Name", exam.facultysId);
+            ViewData["subjectsId"] = new SelectList(_context.subject, "Id", "Name", exam.subjectsId);
             return View(exam);
         }
 
@@ -79,6 +87,9 @@ namespace PRACTICAL_EXAM_NET.Controllers
             {
                 return NotFound();
             }
+            ViewData["classesId"] = new SelectList(_context.classes, "Id", "Name", exam.classesId);
+            ViewData["facultysId"] = new SelectList(_context.faculty, "Id", "Name", exam.facultysId);
+            ViewData["subjectsId"] = new SelectList(_context.subject, "Id", "Name", exam.subjectsId);
             return View(exam);
         }
 
@@ -87,7 +98,7 @@ namespace PRACTICAL_EXAM_NET.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ExamId,StartTime,ExamDate,ExamDuration")] Exam exam)
+        public async Task<IActionResult> Edit(int id, [Bind("ExamId,StartTime,ExamDate,ExamDuration,classesId,facultysId,subjectsId")] Exam exam)
         {
             if (id != exam.ExamId)
             {
@@ -114,6 +125,9 @@ namespace PRACTICAL_EXAM_NET.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["classesId"] = new SelectList(_context.classes, "Id", "Name", exam.classesId);
+            ViewData["facultysId"] = new SelectList(_context.faculty, "Id", "Name", exam.facultysId);
+            ViewData["subjectsId"] = new SelectList(_context.subject, "Id", "Name", exam.subjectsId);
             return View(exam);
         }
 
@@ -126,6 +140,9 @@ namespace PRACTICAL_EXAM_NET.Controllers
             }
 
             var exam = await _context.exams
+                .Include(e => e.classes)
+                .Include(e => e.facultys)
+                .Include(e => e.subjects)
                 .FirstOrDefaultAsync(m => m.ExamId == id);
             if (exam == null)
             {

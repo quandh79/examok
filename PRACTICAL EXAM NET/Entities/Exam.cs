@@ -16,10 +16,14 @@ namespace PRACTICAL_EXAM_NET.Entities
         [DataType(DataType.Time)]
         [Display(Name = "Exam Duration")]
         public TimeSpan ExamDuration { get; set; }
-        public virtual ICollection<Subject> subjects { get; set; } = new List<Subject>();
-        public virtual ICollection<Class> classes { get; set; } = new List<Class>();
-        public virtual ICollection<Faculty> faculty { get; set; } = new List<Faculty>();
-      
-       
+        public int? classesId { get; set; }
+        public int? facultysId { get; set; }
+        public int? subjectsId { get; set; }
+        
+        public virtual Class classes { get; set; }
+        public virtual Subject subjects { get; set; }
+        public virtual Faculty facultys { get; set; }
+
+
     }
 }
