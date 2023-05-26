@@ -22,6 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ExamDuration)
             </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.classes)
             </th>
@@ -30,6 +31,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.facultys)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
             </th>
             <th></th>
         </tr>
@@ -46,6 +50,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ExamDuration)
             </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.classes.Name)
             </td>
@@ -55,6 +60,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.facultys.Name)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ExamId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ExamId">Details</a> |

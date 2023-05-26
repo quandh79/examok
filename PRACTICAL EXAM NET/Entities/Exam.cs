@@ -19,6 +19,7 @@ namespace PRACTICAL_EXAM_NET.Entities
         public int? classesId { get; set; }
         public int? facultysId { get; set; }
         public int? subjectsId { get; set; }
+        public string? status { get; set; }
         
         public virtual Class classes { get; set; }
         public virtual Subject subjects { get; set; }
